@@ -1,5 +1,0 @@
-class Decoder{
-    public Decoder(){
-        
-    }
-}
