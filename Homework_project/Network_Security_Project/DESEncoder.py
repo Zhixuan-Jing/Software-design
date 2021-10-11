@@ -44,12 +44,12 @@ class Encoder:
             51,45,33,48,44,49,39,56,
             34,53,46,42,50,36,29,32
         ])
-
+        self.round_text = []
         self.rotate = [1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1]
         self.SBox = np.array([
             [
                 14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7,
-                0,15,74,14,2,13,1,10,6,12,11,9,5,3,8,
+                0,15,7,4,14,2,13,1,10,6,12,11,9,5,3,8,
                 4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0,
                 15,12,8,2,4,9,1,7,5,11,3,14,10,0,6,13
             ],
@@ -73,7 +73,7 @@ class Encoder:
             [
                 2,12,4,1,7,10,11,6,8,5,3,15,13,0,14,9,
                 14,11,2,12,4,7,13,1,5,0,15,10,3,9,8,6,
-                4,2,1,11,10,13,7,8,15,9,12,56,3,0,14,
+                4,2,1,11,10,13,7,8,15,9,12,5,6,3,0,14,
                 11,8,12,7,1,14,2,13,6,15,0,9,10,4,5,3
             ],
             [
@@ -154,28 +154,25 @@ class Encoder:
         leftbits = keypc1[0:28]
         rightbits = keypc1[28:]
         self.key_gen(leftbits,rightbits)
-        # print(self.sub_keys)
+        # for ele in self.sub_keys:
+        #     print(ele)
 
 
+    def expansion_box(self,plain_right):
+        ep = [32,1,2,3,4,5,4,5,6,7,8,9,
+     8,9,10,11,12,13,12,13,14,15,16,17,
+     16,17,18,19,20,21,20,21,22,23,24,25,
+     24,25,26,27,28,29,28,29,30,31,32,1]
 
-    def encode(self,plain,cipher):
-        res = []
-        plain = self.transform(plain,self.ip)
-        C,D=self.decompose(plain)
-
-
-        return res 
-
-    def expansion_box(plain_right):
         new_list = []
         for i in ep:
             new_list.append(plain_right[i-1])
         return new_list
 
-    def check_xor_key(plain_exp,sub_key):
+    def check_xor_key(self,plain_exp,sub_key):
         plain_xor_list = []
         for i in range(0,len(plain_exp)):
-            if plain_exp[i] == sub_keys[sub_key][i]:
+            if plain_exp[i] == self.sub_keys[sub_key][i]:
                 plain_xor_list.append(0)
             else:
                 plain_xor_list.append(1)
@@ -184,7 +181,14 @@ class Encoder:
 
 
 
-    def plain_substution(plain_xor):
+    def plain_substution(self,plain_xor):
+
+        s_rows = ['00','01','10','11']
+
+        s_cols = ['0000','0001','0010','0011','0100','0101','0110','0111','1000',
+          '1001','1010','1011','1100','1101','1110','1111']
+
+
         plain_sub_list = []
         plain_list = []
         plain_xlist = []
@@ -197,9 +201,10 @@ class Encoder:
         for word in plain_sub_list:
             row = str(word[0])+str(word[-1])
             col = str(word[1])+str(word[2])+str(word[3])+str(word[4])
-            if count == 0:
-                val = s0[s_rows.index(row)][s_cols.index(col)]
-                plain_list.append(s_cols[val])
+            box = self.SBox[count]
+            # print(np.size(box,axis=0))
+            val = box[s_rows.index(row)*16+s_cols.index(col)]
+            plain_list.append(s_cols[val])
 
             count += 1
         for i in plain_list:
@@ -207,32 +212,35 @@ class Encoder:
                 plain_xlist.append(int(j))
         return plain_xlist
 
-    def plain_pbox(plain_sub):
+    def plain_pbox(self,plain_sub):
         plain_p_text = []
+        p = [16,7,20,21,29,12,28,17,1,15,23,26,5,18,31,10,
+     2,8,24,14,32,27,3,9,19,13,30,6,22,11,4,25]
         for i in p:
             plain_p_text.append(plain_sub[i-1])
-        return plain_p_text
+        return np.array(plain_p_text)
 
-    def check_xor_left(plain_left,plain_P):
+    def check_xor_left(self,plain_left,plain_P):
         plain_right_text = []
-        for i in range(0,len(plain_left)):
+        for i in range(0,np.size(plain_left)):
             if plain_left[i] == plain_P[i]:
                 plain_right_text.append(0)
             else:
                 plain_right_text.append(1)
-        return plain_right_text
 
-    def print_round_text():
-        for i in range(0,len(round_text)):
-            print("Round-",i,round_text[i])
+        return np.array(plain_right_text)
 
-    def plain_ip_1(round_plain_text):
+    # def print_round_text(self):
+    #     for i in range(0,len(round_text)):
+    #         print("Round-",i,round_text[i])
+
+    def plain_ip_1(self,round_plain_text):
         cipher_text_bin = []
-        for i in ip_1:
+        for i in self.ipR:
             cipher_text_bin.append(round_plain_text[i-1])
         return cipher_text_bin
 
-    def cipher_text_conversion(cp_bin):
+    def cipher_text_conversion(self,cp_bin):
         cp_text = ""
         for i in cp_bin:
             cp_text += str(i)
@@ -241,34 +249,34 @@ class Encoder:
 
 
 
-    def plain_text():
+    def plain_text(self):
         plain_text = input("enter plain text ")
-        plain_text_bin = hextobin(plain_text)
+        plain_text_bin = self.hextobin(plain_text)
         plain_text_length = len(plain_text_bin)
         if plain_text_length < 64:
             while len(plain_text_bin) != 64:
                 plain_text_bin += '0'
-        plain_ip = self.transform(plain_text_bin)
+        plain_ip = self.transform(plain_text_bin,self.ip)
         plain_left = plain_ip[0:32]
         plain_right = plain_ip[32:]
         rounds = 16
         sub_key = 0
         while rounds != 0:
-            plain_exp = expansion_box(plain_right)
-            plain_xor = check_xor_key(plain_exp,sub_key)
-            plain_sub = plain_substution(plain_xor)
-            plain_p = plain_pbox(plain_sub)
-            right_part = check_xor_left(plain_left,plain_p)
-            round_text.append(plain_right + right_part)
+            plain_exp = self.expansion_box(plain_right)
+            plain_xor = self.check_xor_key(plain_exp,sub_key)
+            plain_sub = self.plain_substution(plain_xor)
+            plain_p = self.plain_pbox(plain_sub)
+            right_part = self.check_xor_left(plain_left,plain_p)
+            self.round_text.append(np.concatenate((plain_right,right_part),axis=0))
             plain_left = plain_right
             plain_right = right_part
             sub_key += 1
             rounds -= 1
-        print_round_text()
-        cipher_bin = plain_ip_1(round_text[15])
-        cipher_text = cipher_text_conversion(cipher_bin)
+        cipher_bin = self.plain_ip_1(self.round_text[15])
+        cipher_text = self.cipher_text_conversion(cipher_bin)
         print("Cipher Text: ",cipher_text)
 
 if __name__=="__main__":
     case = Encoder()
     case.key_generation()
+    case.plain_text()
