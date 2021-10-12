@@ -230,11 +230,7 @@ class Encoder:
 
         return np.array(plain_right_text)
 
-    # def print_round_text(self):
-    #     for i in range(0,len(round_text)):
-    #         print("Round-",i,round_text[i])
-
-    def plain_ip_1(self,round_plain_text):
+    def plain_ipR(self,round_plain_text):
         cipher_text_bin = []
         for i in self.ipR:
             cipher_text_bin.append(round_plain_text[i-1])
@@ -249,7 +245,7 @@ class Encoder:
 
 
 
-    def plain_text(self):
+    def encode(self):
         plain_text = input("enter plain text ")
         plain_text_bin = self.hextobin(plain_text)
         plain_text_length = len(plain_text_bin)
@@ -279,4 +275,4 @@ class Encoder:
 if __name__=="__main__":
     case = Encoder()
     case.key_generation()
-    case.plain_text()
+    case.encode()
