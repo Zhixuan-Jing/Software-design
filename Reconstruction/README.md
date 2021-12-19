@@ -7,3 +7,6 @@ This directory is to store the reconstruction of papers in AI, including several
 - GAT: Graph Attention Network
 - GCN: Graph Convolution Network
 - RNN: Recurrent Neural Network
+- Practice works in *Machine Learning* authored by Zhou Zhihua
+- Simple CNN construction
+
