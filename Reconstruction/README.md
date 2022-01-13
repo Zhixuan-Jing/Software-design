@@ -9,4 +9,3 @@ This directory is to store the reconstruction of papers in AI, including several
 - RNN: Recurrent Neural Network
 - Practice works in *Machine Learning* authored by Zhou Zhihua
 - Simple CNN construction
-

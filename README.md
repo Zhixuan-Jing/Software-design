@@ -11,4 +11,3 @@ This git repository is to store past projects done by myself. Some of them may g
 - For past project: [Past project](Homework_project/README.md)
 - For reconstruction of papers: [Paper reconstruction](Reconstruction/README.md)
 - For personal project: [Personal project](Personal_project/README.md)
-
