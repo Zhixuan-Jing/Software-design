@@ -1,8 +1,8 @@
 from ASM import db
-
+from sqlalchemy import String, Integer
 class Molecule(db.Model):
   __tablename__="molecule"
-  
+
   id = db.Column(db.Integer, primary_key=True) 
   picture = db.Column(db.String) 
   smiles = db.Column(db.String)
