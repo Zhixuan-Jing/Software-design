@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    meta tags
+    -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--
+    title tag
+    -->
+    <title>拖拽式打分demo</title>
+
+    <!--
+    stylesheets
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="static/css/css2.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/glightbox.min.css">
+    <link rel="stylesheet" href="static/css/all.min.css">
+    <link rel="stylesheet" href="static/css/line-awesome.min.css">
+    <link rel="stylesheet" href="static/css/overlay-scrollbars.min.css">
+    <link rel="stylesheet" href="static/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <!--点击小图切换大图 https://blog.csdn.net/djk8888/article/details/117227753 -->
+    <link href="static/css/imgbox.css" type="text/css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="main-wrapper">
+
+    <!--
+    navigation - start
+    -->
+    <div class="navigation">
+        <div class="navigation-wrapper">
+            <div class="container">
+                <div class="navigation-inner">
+                    <div class="navigation-logo">
+                        <a href="">
+                            <img src="static/image/logo.png"  width="150px" alt="logo">
+                        </a>
+                    </div>
+                    <div class="navigation-menu">
+                        <div class="mobile-header">
+                            <div class="logo">
+                                <a href="">
+                                    <img src="static/image/logo.png"  width="150px" alt="logo">
+                                </a>
+                            </div>
+                            <ul>
+                                <li class="close-button">
+                                    <i class="fas fa-times"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="parent">
+                            <li>
+                                <a href="" class="link-underline link-underline-1">
+                                    <span>上一任务</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" class="link-underline link-underline-1">
+                                    <span>下一任务</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" class="link-underline link-underline-1">
+                                    <span>登录</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="background-pattern">
+                            <div class="background-pattern-img background-loop" style="background-image: url(static/image/pattern.jpg);"></div>
+                            <div class="background-pattern-gradient"></div>
+                        </div>
+                    </div>
+                    <div class="navigation-bar">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    navigation - end
+    -->
+
+
+    <!--
+    app features wide section - start
+    -->
+    <div class="app-feature app-feature-1">
+        <div class="app-feature-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 offset-lg-0 col-10 offset-1">
+                        <div class="section-heading center width-64">
+                            <div class="main-heading c-dark">
+                                <h1>根据相似度拖动打分</h1>
+                            </div>
+                            <a id="picQ" href="static/picture/q.jpg"><img src="static/picture/q.jpg" width="200px" draggable="false"></a>
+                            <p id="demo">将分子式拖入矩形框:</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gx-5 gy-5">
+                    <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-10 offset-1">
+                        <div class="app-feature-single app-feature-single-2">
+                            <div id="5" class="app-feature-single-wrapper"></div>
+                            <a class="circle">
+                                <font color="#EE82EE">5</font>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-10 offset-1">
+                        <div class="app-feature-single app-feature-single-2">
+                            <div id="4" class="app-feature-single-wrapper"></div>
+                            <a class="circle">
+                                <font color="#EE82EE">4</font>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-10 offset-1">
+                        <div class="app-feature-single app-feature-single-2">
+                            <div id="3" class="app-feature-single-wrapper"></div>
+                            <a class="circle">
+                                <font color="#EE82EE">3</font>
+                            </a>
+                        </div>
+                    </div>
+                    <!--
+                        图片部分
+                    -->
+                    <div align="center">
+                        <a id="pic1" href="static/picture/c1.jpg"><img src="static/picture/c1.jpg" width="200px" draggable="true" id="1号分子式"></a>
+                        <a id="pic2" href="static/picture/c2.jpg"><img src="static/picture/c2.jpg" width="200px" draggable="true" id="2号分子式"></a>
+                        <a id="pic3" href="static/picture/c3.jpg"><img src="static/picture/c3.jpg" width="200px" draggable="true" id="3号分子式"></a>
+                        <a id="pic4" href="static/picture/c4.jpg"><img src="static/picture/c4.jpg" width="200px" draggable="true" id="4号分子式"></a>
+                        <a id="pic5" href="static/picture/c5.jpg"><img src="static/picture/c5.jpg" width="200px" draggable="true" id="5号分子式"></a>
+                    </div>
+                    <!--
+                        图片部分 - end
+                    -->
+                    <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-10 offset-1">
+                        <div class="app-feature-single app-feature-single-2">
+                            <div id="2" class="app-feature-single-wrapper"></div>
+                            <a class="circle">
+                                <font color="#EE82EE">2</font>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-10 offset-1">
+                        <div class="app-feature-single app-feature-single-2">
+                            <div id="1" class="app-feature-single-wrapper"></div>
+                            <a class="circle">
+                                <font color="#EE82EE">1</font>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-10 offset-1">
+                        <div class="app-feature-single app-feature-single-2">
+                            <div id="0" class="app-feature-single-wrapper"></div>
+                            <a class="circle">
+                                <font color="#EE82EE">0</font>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    app features wide section - end
+    -->
+
+    <!--
+    scripts
+    -->
+    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/swiper-bundle.min.js"></script>
+    <script src="static/js/glightbox.min.js"></script>
+    <script src="static/js/overlay-scrollbars.min.js"></script>
+    <script src="static/js/gsap.min.js"></script>
+    <script src="static/js/main.js"></script>
+
+    <!--
+    拖动部分
+    -->
+    <script>
+        /* 拖动时触发*/
+        document.addEventListener("dragstart", function(event) {
+            //dataTransfer.setData()方法设置数据类型和拖动的数据
+            event.dataTransfer.setData("Text", event.target.id);
+            // 拖动 p 元素时输出一些文本
+            pic_name=event.target.id;
+            document.getElementById("demo").innerHTML = "正在拖动" + pic_name;    
+            //修改拖动元素的透明度
+            event.target.style.opacity = "0.4";
+        });
+        //在拖动p元素的同时,改变输出文本的颜色
+        document.addEventListener("drag", function(event) {
+            document.getElementById("demo").style.color = "red";
+        });
+        // 当拖完p元素输出一些文本元素和重置透明度
+        document.addEventListener("dragend", function(event) {
+            document.getElementById("demo").innerHTML = "将分子式拖入矩形框:";
+            event.target.style.opacity = "1";
+        });
+        /* 拖动完成后触发 */
+        // 当p元素完成拖动进入droptarget,改变div的边框样式
+        document.addEventListener("dragenter", function(event) {
+            if ( event.target.className == "app-feature-single-wrapper" ) {
+                event.target.style.border = "3px dotted red";
+                box_name=event.target.id;
+                document.getElementById("demo").innerHTML = pic_name+"获得了"+box_name+"分";
+                //js全局储存-------------
+            }
+        });
+        // 默认情况下,数据/元素不能在其他元素中被拖放。对于drop我们必须防止元素的默认处理
+        document.addEventListener("dragover", function(event) {
+            event.preventDefault();
+        });
+        // 当可拖放的p元素离开droptarget，重置div的边框样式
+        document.addEventListener("dragleave", function(event) {
+            if ( event.target.className == "app-feature-single-wrapper" ) {
+                event.target.style.border = "";
+                document.getElementById("demo").innerHTML = "将分子式拖入矩形框:";
+            }
+        });
+        /*对于drop,防止浏览器的默认处理数据(在drop中链接是默认打开)
+        复位输出文本的颜色和DIV的边框颜色
+        利用dataTransfer.getData()方法获得拖放数据
+        拖拖的数据元素id(“drag1”)
+        拖拽元素附加到drop元素*/
+        document.addEventListener("drop", function(event) {
+            event.preventDefault();
+            if ( event.target.className == "app-feature-single-wrapper" ) {
+                document.getElementById("demo").style.color = "";
+                event.target.style.border = "";
+                var data = event.dataTransfer.getData("Text");
+                event.target.appendChild(document.getElementById(data));
+            }
+        });
+    </script>
+    <!--
+    拖动部分 - end
+    -->
+
+    <!--
+        点击小图切换大图
+    -->
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/jquery.imgbox.pack.js"></script>
+    <script>
+        $(function(){
+            $("#pic1").imgbox({'speedIn':0,'speedOut':0,'alignment':'center','overlayShow':true,'allowMultiple':false});
+            $("#pic2").imgbox({'speedIn':0,'speedOut':0,'alignment':'center','overlayShow':true,'allowMultiple':false});
+            $("#pic3").imgbox({'speedIn':0,'speedOut':0,'alignment':'center','overlayShow':true,'allowMultiple':false});
+            $("#pic4").imgbox({'speedIn':0,'speedOut':0,'alignment':'center','overlayShow':true,'allowMultiple':false});
+            $("#pic5").imgbox({'speedIn':0,'speedOut':0,'alignment':'center','overlayShow':true,'allowMultiple':false});
+            $("#picQ").imgbox({'speedIn':0,'speedOut':0,'alignment':'center','overlayShow':true,'allowMultiple':false});
+        });
+    </script>
+    <!--
+        点击小图切换大图 - end
+    -->
+    
+
+</body>
+</html>
+
+<!--
+    存储监听的数据，缓存-------------
+    json格式传输
+-->
