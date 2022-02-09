@@ -6,7 +6,6 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from torchvision.transforms import ToTensor, Lambda
 import matplotlib.pyplot as plt
-
 class pyramid(nn.Module):
     def __init__(self):
         super(pyramid,self).__init__()
@@ -27,10 +26,15 @@ class pyramid(nn.Module):
             nn.ReLU()
         )
         self.fcon=nn.Linear(4*4*8,10)
+        # pooling4d = nn.MaxPool2d(4,4)
+        # pooling2d = nn.MaxPool2d(2,2)
+
 
     def forward(self,x):
         x=self.conv1(x)
         x=self.conv2(x)
+        # p4d = nn.MaxPool2d()
+        print(x.shape)
         x=self.flatten(x)
         x=self.fcon(x)
         return x
