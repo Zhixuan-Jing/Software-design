@@ -62,7 +62,7 @@ if __name__ == "__main__":
     train_dataloader = DataLoader(training_data, batch_size=batch_size)
     test_dataloader = DataLoader(test_data, batch_size=batch_size)
 
-    # network=DARNN(14,28,1).to(device)
-    # optimizer = torch.optim.SGD(network.parameters(), lr=learning_rate)
-    # train(network,optimizer,epochs,train_dataloader)
-    # test_loop(test_dataloader,network,network.loss)
+    network=DARNN(14,28,1).to(device)
+    optimizer = torch.optim.SGD(network.parameters(), lr=learning_rate)
+    train(network,optimizer,epochs,train_dataloader)
+    test_loop(test_dataloader,network,network.loss)

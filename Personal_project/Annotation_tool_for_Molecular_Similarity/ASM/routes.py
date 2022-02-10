@@ -18,8 +18,10 @@ from ASM.models import *
 # @app.errorhandler(404)
 # def page_not_fount(e):
 #     return render_template('customer/404-illustration.html')
-
-@app.route('/index')
+@app.route('/')
+def route():
+  return "success!"
+@app.route('/index',methods=['GET','POST'])
 def index():
   print("found")
-  return render_template('index.html')
+  return ""
