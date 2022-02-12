@@ -12,7 +12,6 @@ from werkzeug.utils import redirect
 from ASM.database import similarity, molecule
 from ASM import app, db, Config, email
 from flask import render_template, flash, jsonify, session, url_for, request
-from werkzeug.security import check_password_hash, generate_password_hash
 from ASM.models import *
 
 # @app.errorhandler(404)
