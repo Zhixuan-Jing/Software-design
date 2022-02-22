@@ -6,27 +6,31 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from torchvision.transforms import ToTensor, Lambda
 import matplotlib.pyplot as plt
-
+from tqdm import trange
 class cnn(nn.Module):
     def __init__(self):
         super(cnn,self).__init__()
         self.flatten = nn.Flatten()
         self.loss=nn.CrossEntropyLoss()
         self.conv1=nn.Sequential(
-            nn.Conv2d(1,4,5),
-            # 20*20*4
+            nn.Conv2d(3,4,5),
+            # 24*24*4
             nn.MaxPool2d(2,2),
-            #10*10*4
+            #12*12*4
             nn.ReLU()
         )
         self.conv2=nn.Sequential(
             nn.Conv2d(4,8,5),
-            # 6*6*8
+            # 8*8*8
             nn.MaxPool2d(2,2),
-            # 3*3*8
+            # 4*4*8
             nn.ReLU()
         )
-        self.fcon=nn.Linear(4*4*8,10)
+        self.fcon=nn.Sequential(
+            nn.Linear(5*5*8,100),
+            nn.Linear(100,50),
+            nn.Linear(50,10)
+        )
 
     def forward(self,x):
         x=self.conv1(x)
@@ -39,7 +43,7 @@ class cnn(nn.Module):
 def train(model,optimizer,epoch,dataloader):
     res = []
     size = len(dataloader.dataset)
-    for i in range(epoch):
+    for i in trange(epoch):
         for batch,(X,y) in enumerate(dataloader):
             X=X.cuda()
             y=y.cuda()
@@ -52,7 +56,7 @@ def train(model,optimizer,epoch,dataloader):
             if batch % 100 == 0:
                 loss, current = loss.item(), batch * len(X)
                 res.append(loss)
-                print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
+                # print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
     return res
 def test_loop(dataloader, model, loss_fn):
     size = len(dataloader.dataset)
@@ -74,15 +78,15 @@ if __name__ == "__main__":
     device = torch.device("cuda:0")
     learning_rate = 1e-3
     batch_size = 64
-    epochs = 10
-    training_data = datasets.FashionMNIST(
+    epochs = 100
+    training_data = datasets.CIFAR10(
         root="data",
         train=True,
         download=True,
         transform=ToTensor()
     )
 
-    test_data = datasets.FashionMNIST(
+    test_data = datasets.CIFAR10(
         root="data",
         train=False,
         download=True,
@@ -93,8 +97,8 @@ if __name__ == "__main__":
     test_dataloader = DataLoader(test_data, batch_size=batch_size)
 
     network=cnn().cuda()
-    optimizer = torch.optim.Adam(network.parameters(), lr=0.1)
-    result = train(network,optimizer,10,train_dataloader)
+    optimizer = torch.optim.Adam(network.parameters(), lr=learning_rate)
+    result = train(network,optimizer,epochs,train_dataloader)
     test_loop(test_dataloader,network,network.loss)
     plt.plot(list(x for x in range(len(result))),result)
     plt.xlabel("epoch")

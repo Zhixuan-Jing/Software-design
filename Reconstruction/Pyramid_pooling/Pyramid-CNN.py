@@ -21,11 +21,11 @@ class Pyramid(nn.Module):
         self.conv2 = nn.Sequential(
             nn.Conv2d(4, 1, 3),
 
-            nn.MaxPool2d(2, 2),
+            # nn.MaxPool2d(2, 2),
 
             nn.ReLU()
         )
-        self.fcon = nn.Linear(21, 100)
+        self.fcon = nn.Linear(21, 10)
 
     def forward(self, x):
         x = self.conv1(x)
@@ -81,22 +81,22 @@ def test_loop(dataloader, model, loss_fn):
 
     test_loss /= size
     correct /= size
-    # print(f"Test Error: \n Accuracy: {(100 * correct):>0.1f}%, Avg loss: {test_loss:>8f} \n",end="\r")
+    print(f"Test Error: \n Accuracy: {(100 * correct):>0.1f}%, Avg loss: {test_loss:>8f} \n",end="\r")
 
 
 if __name__ == "__main__":
     device = torch.device("cuda:0")
     learning_rate = 1e-3
     batch_size = 64
-    epochs = 100
-    training_data = datasets.CIFAR100(
+    epochs = 10
+    training_data = datasets.CIFAR10(
         root="data",
         train=True,
         download=False,
         transform=ToTensor()
     )
 
-    test_data = datasets.CIFAR100(
+    test_data = datasets.CIFAR10(
         root="data",
         train=False,
         download=False,
@@ -107,9 +107,10 @@ if __name__ == "__main__":
     test_dataloader = DataLoader(test_data, batch_size=batch_size)
 
     network = Pyramid().cuda()
-    optimizer = torch.optim.Adam(network.parameters(), lr=0.1)
+    optimizer = torch.optim.Adam(network.parameters(), lr=learning_rate)
     result = train(network, optimizer, epochs, train_dataloader)
     test_loop(test_dataloader, network, network.loss)
+    print(len(result))
     plt.plot(list(x for x in range(len(result))), result)
     plt.xlabel("epoch")
     plt.ylabel("loss")
