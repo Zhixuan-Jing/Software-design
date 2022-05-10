@@ -79,17 +79,17 @@ if __name__ == "__main__":
     learning_rate = 1e-3
     batch_size = 64
     epochs = 100
-    training_data = datasets.CIFAR10(
+    training_data = datasets.FashionMNIST(
         root="data",
         train=True,
         download=True,
         transform=ToTensor()
     )
 
-    test_data = datasets.CIFAR10(
+    test_data = datasets.FashionMNIST(
         root="data",
         train=False,
-        download=True,
+        download=False,
         transform=ToTensor()
     )
 

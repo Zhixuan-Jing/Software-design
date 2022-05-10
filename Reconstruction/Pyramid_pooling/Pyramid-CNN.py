@@ -25,7 +25,7 @@ class Pyramid(nn.Module):
 
             nn.ReLU()
         )
-        self.fcon = nn.Linear(21, 10)
+        self.fcon = nn.Linear(21, 100)
 
     def forward(self, x):
         x = self.conv1(x)
@@ -89,14 +89,14 @@ if __name__ == "__main__":
     learning_rate = 1e-3
     batch_size = 64
     epochs = 10
-    training_data = datasets.CIFAR10(
+    training_data = datasets.CIFAR100(
         root="data",
         train=True,
-        download=False,
+        download=True,
         transform=ToTensor()
     )
 
-    test_data = datasets.CIFAR10(
+    test_data = datasets.CIFAR100(
         root="data",
         train=False,
         download=False,
