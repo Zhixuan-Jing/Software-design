@@ -43,7 +43,7 @@ def train(dataset, labelset, train_data, train_label):
         k=c*(1-c)*b
         grad = np.dot(np.transpose(data),k)
         w = w-grad*n
-        rate = test(data, train_label, w)
+    rate = test(data, train_label, w)
     print(rate)
     return w
 
@@ -93,7 +93,6 @@ if __name__ == "__main__":
     test_label=[1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0]
 
     w=train(dataset,labelset,test_data,test_label)
-    print(w)
 
 
 
