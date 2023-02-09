@@ -1,10 +1,21 @@
 set.seed(1)
 library("Matrix")
 library("stats")
-data1 <- rnbinom(10, 5, 0.7)
-data2 <- rnbinom(8, 4, 0.5)
+print("From package RandomGenerator")
+# nb random st generator for generating original ST data
+# input: parameter vector s1 and s2
+# output: random st-based image a
+nb_random <- function(s1, s2) {
+  data1 <- rnbinom(s1[1], s1[2], s1[3])
+  data2 <- rnbinom(s2[1], s2[2], s2[3])
 
-a <- data1 %o% data2
+  a <- data1 %o% data2
+  return(a)
+}
+
+# feature extraction for existed data
+# input: st data matrix a
+# output: row and column mean vectors xvec and yvec
 
 feat_extraction <- function(a) {
   xvec <- rowMeans(a)
@@ -12,8 +23,8 @@ feat_extraction <- function(a) {
   return(list("vx" = xvec, "vy" = yvec))
 }
 
+
 r <- feat_extraction(a)
 x <- r$vx
 y <- r$vy
-print(x)
-print(y)
+print(x %*% y)
