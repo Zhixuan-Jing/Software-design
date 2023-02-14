@@ -1,7 +1,7 @@
-set.seed(1)
+
 library("Matrix")
 library("stats")
-print("From package RandomGenerator")
+
 # nb random st generator for generating original ST data
 # input: parameter vector s1 and s2
 # output: random st-based image a
@@ -22,9 +22,3 @@ feat_extraction <- function(a) {
   yvec <- colMeans(a)
   return(list("vx" = xvec, "vy" = yvec))
 }
-
-
-r <- feat_extraction(a)
-x <- r$vx
-y <- r$vy
-print(x %*% y)
